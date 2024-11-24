@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <ProjectReference Include="..\lib_entidades\lib_entidades.csproj" />
+    <ProjectReference Include="..\lib_repositorio\lib_repositorio.csproj" />
   </ItemGroup>
 
 </Project>
