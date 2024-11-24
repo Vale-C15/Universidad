@@ -3,6 +3,7 @@ using lib_repositorios;
 using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using mst_prueba.Nucleo;
 
 namespace mst_prueba.Repositorio
 {
@@ -16,7 +17,7 @@ namespace mst_prueba.Repositorio
         public EstudiantessPruebaUnitaria()
         {
             var conexion = new Conexion();
-            conexion.StringConnection = "server=localhost;database=BD_Universidad;Integrated Security=True;TrustServerCertificate=true;";
+            conexion.StringConnection = Configuracion.ObtenerValor("ConectionString");
             iRepositorio = new EstudiantesRepositorio(conexion);
         }
 
