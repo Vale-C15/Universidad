@@ -2,6 +2,7 @@ using lib_repositorios;
 using lib_repositorios.Interfaces;
 using lib_repositorios.Implementaciones;
 using lib_entidades.Modelos;
+using mst_prueba.Nucleo;
 
 
 namespace mst_prueba.Repositorios
@@ -17,7 +18,7 @@ namespace mst_prueba.Repositorios
         public Clases_EstudiantesPruebaUnitaria()
         {
             var conexion = new Conexion();
-            conexion.StringConnection = "server=localhost;database=BD_Universidad;Integrated Security=True;TrustServerCertificate=true;";
+            conexion.StringConnection = Configuracion.ObtenerValor("ConectionString");
             iRepositorio = new Clases_EstudiantesRepositorio(conexion);
         }
 

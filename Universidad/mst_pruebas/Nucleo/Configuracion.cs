@@ -1,7 +1,7 @@
 ﻿using lib_utilidades;
 using Newtonsoft.Json;
 
-namespace asp_servicios.Nucleo
+namespace mst_prueba.Nucleo
 {
     public class Configuracion
     {
