@@ -13,7 +13,12 @@ namespace lib_repositorio.Implementaciones
     public class RolesRepositorio : IRolesRepositorio
     {
         private Conexion? conexion = null;
+        private IAuditoriasRepositorio? IAuditoriasRepositorio = null;
 
+        public RolesRepositorio(IAuditoriasRepositorio IAuditoriasRepositorio)
+        {
+            this.IAuditoriasRepositorio = IAuditoriasRepositorio;
+        }
         public RolesRepositorio(Conexion conexion)
         {
             this.conexion = conexion;
@@ -21,6 +26,14 @@ namespace lib_repositorio.Implementaciones
 
         public List<Roles> Listar()
         {
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Roles",
+                Referencia = 0,
+                Accion = "Listar",
+
+            });
 
             return conexion!.Listar<Roles>();
         }
@@ -30,7 +43,14 @@ namespace lib_repositorio.Implementaciones
         }
         public List<Roles> Buscar(Expression<Func<Roles, bool>> condiciones)
         {
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Roles",
+                Referencia = 0,
+                Accion = "Buscar",
 
+            });
 
             return conexion!.Buscar(condiciones);
         }
@@ -40,6 +60,14 @@ namespace lib_repositorio.Implementaciones
             conexion!.Guardar(entidad);
             conexion!.GuardarCambios();
 
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Roles",
+                Referencia = entidad.Id,
+                Accion = "Guardar",
+
+            });
 
             return entidad;
         }
@@ -49,6 +77,15 @@ namespace lib_repositorio.Implementaciones
             conexion!.Modificar(entidad);
             conexion!.GuardarCambios();
 
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Roles",
+                Referencia = entidad.Id,
+                Accion = "Modificar",
+
+            });
+
             return entidad;
         }
 
@@ -56,6 +93,15 @@ namespace lib_repositorio.Implementaciones
         {
             conexion!.Borrar(entidad);
             conexion!.GuardarCambios();
+
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Roles",
+                Referencia = entidad.Id,
+                Accion = "Borrar",
+
+            });
 
             return entidad;
         }
