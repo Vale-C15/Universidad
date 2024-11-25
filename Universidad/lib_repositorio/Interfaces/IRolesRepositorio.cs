@@ -11,10 +11,10 @@ namespace lib_repositorios.Interfaces
     public interface IRolesRepositorio
     {
         void Configurar(string string_conexion);
-        List<Estados> Listar();
-        List<Estados> Buscar(Expression<Func<Estados, bool>> condiciones);
-        Estados Guardar(Estados entidad);
-        Estados Modificar(Estados entidad);
-        Estados Borrar(Estados entidad);
+        List<Roles> Listar();
+        List<Roles> Buscar(Expression<Func<Roles, bool>> condiciones);
+        Roles Guardar(Roles entidad);
+        Roles Modificar(Roles entidad);
+        Roles Borrar(Roles entidad);
     }
 }
