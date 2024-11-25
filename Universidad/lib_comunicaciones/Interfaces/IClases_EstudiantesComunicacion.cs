@@ -1,6 +1,6 @@
 ﻿namespace lib_comunicaciones.Interfaces
 {
-    public interface IProductosComunicacion
+    public interface IClases_EstudiantesComunicacion
     {
         Task<Dictionary<string, object>> Listar(Dictionary<string, object> datos);
         Task<Dictionary<string, object>> Buscar(Dictionary<string, object> datos);
