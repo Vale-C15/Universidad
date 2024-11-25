@@ -1,12 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace lib_entidades.Modelos
 {
-    public class Salones
+    public class Usuarios
     {
         [Key] public int Id { get; set; }
         public string? Nombre { get; set; }
-        public int Capacidad { get; set; }
+        public string? Contrasena { get; set; }
+
+        public int Rol { get; set; }
+
+        [ForeignKey("Rol")] public Roles? _Rol { get; set; }
 
         public bool Validar()
         {
@@ -15,9 +22,9 @@ namespace lib_entidades.Modelos
                 Console.WriteLine("Por favor, ingresa un nombre para continuar");
                 return false;
             }
-            if (Capacidad < 0)
+            if (string.IsNullOrWhiteSpace(Contrasena))
             {
-                Console.WriteLine("Por favor, ingresa una capacidad para continuar");
+                Console.WriteLine("Por favor, ingresa tu contraseña para continuar");
                 return false;
             }
             return true;

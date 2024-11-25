@@ -69,6 +69,37 @@ CONSTRAINT FK_Materias_Clases_Estudiantes FOREIGN KEY (Materia) REFERENCES Mater
 );
 GO
 
+CREATE TABLE Auditorias (
+	ID INT NOT NULL IDENTITY(1,1),
+	Fecha SMALLDATETIME NOT NULL,
+	Tabla NVARCHAR(50) NOT NULL ,
+	Referencia INT NOT NULL,
+	Accion NVARCHAR(50) NOT NULL,
+	CONSTRAINT PK_Auditorias PRIMARY KEY CLUSTERED (ID)
+);
+GO
+
+CREATE TABLE Roles (
+	ID INT NOT NULL IDENTITY(1,1),
+	Nombre NVARCHAR(50) NOT NULL,
+	Listar BIT NOT NULL,
+	Buscar BIT NOT NULL,
+	Eliminar BIT NOT NULL,
+	Modificar BIT NOT NULL,
+	CONSTRAINT PK_Roles PRIMARY KEY CLUSTERED (ID)
+);
+GO
+
+CREATE TABLE Usuario (
+	ID INT NOT NULL IDENTITY(1,1),
+	Nombre NVARCHAR(50) NOT NULL,
+	Contrasena NVARCHAR(50) NOT NULL,
+	Rol INT NOT NULL,
+	CONSTRAINT PK_Usuarios PRIMARY KEY CLUSTERED (ID),
+	CONSTRAINT FK_Roles FOREIGN KEY (Rol) REFERENCES Roles (ID) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+
 INSERT INTO Estados (Nombre)
 VALUES
 ('Activo'),
@@ -114,3 +145,15 @@ VALUES
 ( 5, 1, 1, 4.0, 3.2, 4.5, 1.0, 2.5, 3.04),
 ( 3, 3, 2, 5.0, 4.3, 4.0, 3.8, 4.0, 4.22),
 ( 4, 4, 3, 2.0, 1.8, 1.6, 3.0, 0.6, 1.80);
+
+INSERT INTO Roles (Nombre, Listar, Buscar, Eliminar, Modificar)
+VALUES
+('Profesor', 1, 1, 1, 1),
+('Estudiante', 1, 1, 0, 0); 
+
+INSERT INTO Usuario (Nombre, Contrasena, Rol)
+VALUES
+('geratorres', 'abcd1234', 1),
+('isaurrego', 'efgh5678', 1),
+('valecardona', 'ijkl1234', 2),
+('joharios', 'mnop5678', 2);
