@@ -7,6 +7,12 @@ namespace lib_repositorios.Implementaciones
     public class NivelesRepositorio : INivelesRepositorio
     {
         private Conexion? conexion = null;
+        private IAuditoriasRepositorio? IAuditoriasRepositorio = null;
+
+        public NivelesRepositorio(IAuditoriasRepositorio IAuditoriasRepositorio)
+        {
+            this.IAuditoriasRepositorio = IAuditoriasRepositorio;
+        }
 
         public NivelesRepositorio(Conexion conexion)
         {
@@ -15,6 +21,14 @@ namespace lib_repositorios.Implementaciones
 
         public List<Niveles> Listar()
         {
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Niveles",
+                Referencia = 0,
+                Accion = "Listar",
+
+            });
 
             return conexion!.Listar<Niveles>();
         }
@@ -24,6 +38,14 @@ namespace lib_repositorios.Implementaciones
         }
         public List<Niveles> Buscar(Expression<Func<Niveles, bool>> condiciones)
         {
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Niveles",
+                Referencia = 0,
+                Accion = "Buscar",
+
+            });
 
             return conexion!.Buscar(condiciones);
         }
@@ -33,6 +55,15 @@ namespace lib_repositorios.Implementaciones
             conexion!.Guardar(entidad);
             conexion!.GuardarCambios();
 
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Niveles",
+                Referencia = entidad.Id,
+                Accion = "Guardar",
+
+            });
+
             return entidad;
         }
 
@@ -41,6 +72,14 @@ namespace lib_repositorios.Implementaciones
             conexion!.Modificar(entidad);
             conexion!.GuardarCambios();
 
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Niveles",
+                Referencia = entidad.Id,
+                Accion = "Modificar",
+
+            });
 
             return entidad;
         }
@@ -49,6 +88,15 @@ namespace lib_repositorios.Implementaciones
         {
             conexion!.Borrar(entidad);
             conexion!.GuardarCambios();
+
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Niveles",
+                Referencia = entidad.Id,
+                Accion = "Borrar",
+
+            });
 
             return entidad;
         }
