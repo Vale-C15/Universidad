@@ -12,8 +12,7 @@ namespace lib_entidades.Modelos
         public int Nivel { get; set; }
         public int Estado { get; set; }
 
-        [NotMapped] public Niveles? _Nivel { get; set; }
-        [NotMapped] public Estados? _Estado { get; set; }
-
+        [ForeignKey("Nivel")] public Niveles? _Nivel { get; set; }
+        [ForeignKey("Estado")] public Estados? _Estado { get; set; }
     }
 }

@@ -16,9 +16,8 @@ namespace lib_entidades.Modelos
         public decimal Nota5 { get; set; }
         public decimal NotaFinal { get; set; }
 
-        [NotMapped] public Estudiantes? _Estudiante { get; set; }
-        [NotMapped] public Salones? _Salon { get; set; }
-        [NotMapped] public Materias? _Materia { get; set; }
-
+        [ForeignKey("Estudiante")] public Estudiantes? _Estudiante { get; set; }
+        [ForeignKey("Salon")] public Salones? _Salon { get; set; }
+        [ForeignKey("Materia")] public Materias? _Materia { get; set; }
     }
 }
