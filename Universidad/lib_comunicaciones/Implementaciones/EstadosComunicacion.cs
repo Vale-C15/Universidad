@@ -2,10 +2,10 @@
 
 namespace lib_comunicaciones.Implementaciones
 {
-    public class EstadosComunicacion : IClases_EstudiantesComunicacion
+    public class EstadosComunicacion : IEstadosComunicacion
     {
         private Comunicaciones? comunicaciones = null;
-        private string? Nombre = "Clases_Estudiantes";
+        private string? Nombre = "Estados";
 
         public EstadosComunicacion()
         {
