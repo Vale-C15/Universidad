@@ -10,5 +10,18 @@ namespace lib_entidades.Modelos
         public string? Tabla { get; set; }
         public int Referencia { get; set; }
         public string? Accion { get; set; }
+        public bool Validar()
+        {
+            if (string.IsNullOrEmpty(Accion))
+            {
+                return false;
+            }
+            if (string.IsNullOrEmpty(Tabla))
+            {
+                Console.WriteLine("Por favor, ingresa una tabla para continuar");
+                return false;
+            }
+            return true;
+        }
     }
 }
