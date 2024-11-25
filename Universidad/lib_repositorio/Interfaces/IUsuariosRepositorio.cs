@@ -11,10 +11,10 @@ namespace lib_repositorios.Interfaces
     public interface IUsuariosRepositorio
     {
         void Configurar(string string_conexion);
-        List<Estados> Listar();
-        List<Estados> Buscar(Expression<Func<Estados, bool>> condiciones);
-        Estados Guardar(Estados entidad);
-        Estados Modificar(Estados entidad);
-        Estados Borrar(Estados entidad);
+        List<Usuarios> Listar();
+        List<Usuarios> Buscar(Expression<Func<Usuarios, bool>> condiciones);
+        Usuarios Guardar(Usuarios entidad);
+        Usuarios Modificar(Usuarios entidad);
+        Usuarios Borrar(Usuarios entidad);
     }
 }
