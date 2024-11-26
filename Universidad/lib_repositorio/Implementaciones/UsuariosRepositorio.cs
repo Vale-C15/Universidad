@@ -1,47 +1,54 @@
 ﻿using lib_entidades.Modelos;
+using lib_repositorios;
+using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace lib_repositorios.Implementaciones
+namespace lib_repositorio.Implementaciones
 {
-    public class SalonesRepositorio : ISalonesRepositorio
+    public class UsuariosRepositorio : IUsuariosRepositorio
     {
         private Conexion? conexion = null;
         private IAuditoriasRepositorio? IAuditoriasRepositorio = null;
 
-        public SalonesRepositorio(IAuditoriasRepositorio IAuditoriasRepositorio)
+        public UsuariosRepositorio(IAuditoriasRepositorio IAuditoriasRepositorio)
         {
             this.IAuditoriasRepositorio = IAuditoriasRepositorio;
         }
 
-        public SalonesRepositorio(Conexion conexion)
+        public UsuariosRepositorio(Conexion conexion)
         {
             this.conexion = conexion;
         }
 
-        public List<Salones> Listar()
+        public List<Usuarios> Listar()
         {
             IAuditoriasRepositorio!.Guardar(new Auditorias()
             {
                 Fecha = DateTime.Now,
-                Tabla = "Salones",
+                Tabla = "Usuarios",
                 Referencia = 0,
                 Accion = "Listar",
 
             });
 
-            return conexion!.Listar<Salones>();
+            return conexion!.Listar<Usuarios>();
         }
         public void Configurar(string string_conexion)
         {
             this.conexion!.StringConnection = string_conexion;
         }
-        public List<Salones> Buscar(Expression<Func<Salones, bool>> condiciones)
+        public List<Usuarios> Buscar(Expression<Func<Usuarios, bool>> condiciones)
         {
             IAuditoriasRepositorio!.Guardar(new Auditorias()
             {
                 Fecha = DateTime.Now,
-                Tabla = "Salones",
+                Tabla = "Usuarios",
                 Referencia = 0,
                 Accion = "Buscar",
 
@@ -49,8 +56,7 @@ namespace lib_repositorios.Implementaciones
 
             return conexion!.Buscar(condiciones);
         }
-
-        public Salones Guardar(Salones entidad)
+        public Usuarios Guardar(Usuarios entidad)
         {
             conexion!.Guardar(entidad);
             conexion!.GuardarCambios();
@@ -58,7 +64,7 @@ namespace lib_repositorios.Implementaciones
             IAuditoriasRepositorio!.Guardar(new Auditorias()
             {
                 Fecha = DateTime.Now,
-                Tabla = "Salones",
+                Tabla = "Usuarios",
                 Referencia = entidad.Id,
                 Accion = "Guardar",
 
@@ -67,7 +73,7 @@ namespace lib_repositorios.Implementaciones
             return entidad;
         }
 
-        public Salones Modificar(Salones entidad)
+        public Usuarios Modificar(Usuarios entidad)
         {
             conexion!.Modificar(entidad);
             conexion!.GuardarCambios();
@@ -75,7 +81,7 @@ namespace lib_repositorios.Implementaciones
             IAuditoriasRepositorio!.Guardar(new Auditorias()
             {
                 Fecha = DateTime.Now,
-                Tabla = "Salones",
+                Tabla = "Usuarios",
                 Referencia = entidad.Id,
                 Accion = "Modificar",
 
@@ -84,7 +90,7 @@ namespace lib_repositorios.Implementaciones
             return entidad;
         }
 
-        public Salones Borrar(Salones entidad)
+        public Usuarios Borrar(Usuarios entidad)
         {
             conexion!.Borrar(entidad);
             conexion!.GuardarCambios();
@@ -92,7 +98,7 @@ namespace lib_repositorios.Implementaciones
             IAuditoriasRepositorio!.Guardar(new Auditorias()
             {
                 Fecha = DateTime.Now,
-                Tabla = "Salones",
+                Tabla = "Usuarios",
                 Referencia = entidad.Id,
                 Accion = "Borrar",
 

@@ -7,6 +7,12 @@ namespace lib_repositorios.Implementaciones
     public class EstadosRepositorio : IEstadosRepositorio
     {
         private Conexion? conexion = null;
+        private IAuditoriasRepositorio? IAuditoriasRepositorio = null;
+
+        public EstadosRepositorio(IAuditoriasRepositorio IAuditoriasRepositorio)
+        {
+            this.IAuditoriasRepositorio = IAuditoriasRepositorio;
+        }
 
         public EstadosRepositorio(Conexion conexion)
         {
@@ -15,7 +21,15 @@ namespace lib_repositorios.Implementaciones
 
         public List<Estados> Listar()
         {
-            
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estados",
+                Referencia = 0,
+                Accion = "Listar",
+
+            });
+
             return conexion!.Listar<Estados>();
         }
         public void Configurar(string string_conexion)
@@ -24,7 +38,14 @@ namespace lib_repositorios.Implementaciones
         }
         public List<Estados> Buscar(Expression<Func<Estados, bool>> condiciones)
         {
-          
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estados",
+                Referencia = 0,
+                Accion = "Buscar",
+
+            });
 
             return conexion!.Buscar(condiciones);
         }
@@ -34,7 +55,15 @@ namespace lib_repositorios.Implementaciones
             conexion!.Guardar(entidad);
             conexion!.GuardarCambios();
 
-            
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estados",
+                Referencia = entidad.Id,
+                Accion = "Guardar",
+
+            });
+
             return entidad;
         }
 
@@ -43,7 +72,15 @@ namespace lib_repositorios.Implementaciones
             conexion!.Modificar(entidad);
             conexion!.GuardarCambios();
 
-           
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estados",
+                Referencia = entidad.Id,
+                Accion = "Modificar",
+
+            });
+
             return entidad;
         }
 
@@ -52,7 +89,14 @@ namespace lib_repositorios.Implementaciones
             conexion!.Borrar(entidad);
             conexion!.GuardarCambios();
 
-            
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estados",
+                Referencia = entidad.Id,
+                Accion = "Borrar",
+
+            });
 
             return entidad;
         }
