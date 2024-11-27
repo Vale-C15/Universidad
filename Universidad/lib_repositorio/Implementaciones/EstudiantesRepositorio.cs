@@ -7,7 +7,12 @@ namespace lib_repositorios.Implementaciones
     public class EstudiantesRepositorio : IEstudiantesRepositorio
     {
         private Conexion? conexion = null;
+        private IAuditoriasRepositorio? IAuditoriasRepositorio = null;
 
+        public EstudiantesRepositorio(IAuditoriasRepositorio IAuditoriasRepositorio)
+        {
+            this.IAuditoriasRepositorio = IAuditoriasRepositorio;
+        }
         public EstudiantesRepositorio(Conexion conexion)
         {
             this.conexion = conexion;
@@ -15,6 +20,14 @@ namespace lib_repositorios.Implementaciones
 
         public List<Estudiantes> Listar()
         {
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estudiantes",
+                Referencia = 0,
+                Accion = "Listar",
+
+            });
 
             return conexion!.Listar<Estudiantes>();
         }
@@ -24,6 +37,14 @@ namespace lib_repositorios.Implementaciones
         }
         public List<Estudiantes> Buscar(Expression<Func<Estudiantes, bool>> condiciones)
         {
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estudiantes",
+                Referencia = 0,
+                Accion = "Buscar",
+
+            });
 
             return conexion!.Buscar(condiciones);
         }
@@ -33,6 +54,15 @@ namespace lib_repositorios.Implementaciones
             conexion!.Guardar(entidad);
             conexion!.GuardarCambios();
 
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estudiantes",
+                Referencia = entidad.Id,
+                Accion = "Guardar",
+
+            });
+
             return entidad;
         }
 
@@ -41,6 +71,14 @@ namespace lib_repositorios.Implementaciones
             conexion!.Modificar(entidad);
             conexion!.GuardarCambios();
 
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estudiantes",
+                Referencia = entidad.Id,
+                Accion = "Modificar",
+
+            });
 
             return entidad;
         }
@@ -49,6 +87,15 @@ namespace lib_repositorios.Implementaciones
         {
             conexion!.Borrar(entidad);
             conexion!.GuardarCambios();
+
+            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            {
+                Fecha = DateTime.Now,
+                Tabla = "Estudiantes",
+                Referencia = entidad.Id,
+                Accion = "Borrar",
+
+            });
 
             return entidad;
         }
