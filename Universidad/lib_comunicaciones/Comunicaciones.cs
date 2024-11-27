@@ -5,7 +5,7 @@ namespace lib_comunicaciones
     public class Comunicaciones
     {
         public string? Protocolo = "http://",
-            Host = "localhost:5056",
+            Host = "localhost:5144",
             Servicio = "",// "asp_notas_servicios/",
             Nombre = string.Empty,
             Final = string.Empty,
