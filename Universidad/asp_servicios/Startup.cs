@@ -1,6 +1,7 @@
 ﻿using asp_servicios.Controllers;
 using lib_aplicaciones.Implementaciones;
 using lib_aplicaciones.Interfaces;
+using lib_repositorio.Implementaciones;
 using lib_repositorios;
 using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
@@ -26,13 +27,16 @@ namespace asp_servicios
             services.AddSwaggerGen();
             services.AddScoped<Conexion, Conexion>();
             // Repositorios
+            
             services.AddScoped<IClases_EstudiantesRepositorio, Clases_EstudiantesRepositorio>();
             services.AddScoped<IEstudiantesRepositorio, EstudiantesRepositorio>();
             services.AddScoped<IEstadosRepositorio, EstadosRepositorio>();
             services.AddScoped<IMateriasRepositorio, MateriasRepositorio>();
             services.AddScoped<INivelesRepositorio, NivelesRepositorio>();
             services.AddScoped<ISalonesRepositorio, SalonesRepositorio>();
-           // services.AddScoped<IAuditoriasRepositorio, AuditoriasRepositorio>();
+            services.AddScoped<IAuditoriasRepositorio, AuditoriasRepositorio>();
+            services.AddScoped<IRolesRepositorio, RolesRepositorio>();
+            services.AddScoped<IUsuariosRepositorio, UsuariosRepositorio>();
 
             // Aplicaciones
             services.AddScoped<IClases_EstudiantesAplicacion, Clases_EstudiantesAplicacion>();
