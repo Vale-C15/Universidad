@@ -9,7 +9,7 @@ namespace lib_entidades.Modelos
         [Key] public int Id { get; set; }
         public int Creditos { get; set; }
         public int Nivel { get; set; }
-        [ForeignKey("Materia")] public Materias? _Materia { get; set; }
+        [ForeignKey("Nivel")] public Niveles? _Nivel { get; set; }
         public bool Validar()
         {
             if (string.IsNullOrWhiteSpace(Nombre))

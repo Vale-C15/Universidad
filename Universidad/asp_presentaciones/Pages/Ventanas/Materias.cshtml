@@ -1,7 +1,7 @@
 ﻿@page
-@model asp_presentaciones.Pages.Ventanas.Clases_EstudiantesModel
+@model asp_presentaciones.Pages.Ventanas.MateriasModel
 @{
-    ViewData["Titulo"] = "Clases_Estudiantes";
+    ViewData["Titulo"] = "Materias";
 }
 <center>
     <div>
@@ -10,7 +10,7 @@
             @Html.AntiForgeryToken()
 
             <div align="left">
-                <h3>Clases_Estudiantes</h3>
+                <h3>Materias</h3>
             </div>
             <div align="left"
                  class="bt_panel_buttons">
@@ -45,110 +45,49 @@
             @if (Model.Accion == lib_utilidades.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Estudiante" />
+                       asp-for="@Model.Actual!.Nombre" />
+                
             }
 
             @if (Model.Accion == lib_utilidades.Enumerables.Ventanas.Editar)
             {
                 <div class="containers_vn panel panel-default">
-                    <h3>Estudiante</h3>
+                    <h3>Materias</h3>
 
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Estudiante
+                                Nombre
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmEstudiante"
+                                <input id="nmNombre"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Estudiante" />
+                                       asp-for="@Model.Actual!.Nombre" />
                             </div>
-                        </div>
-                        <div>
-                            class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Salon
-                            </label>
-                            <div class="col-lg-6">
-                                <select id="nmSalon"
-                                        class="form-control"
-                                        asp-for="@Model.Actual!.Salon"
-                                        asp-items="@(new SelectList(Model.Salones, "Id", "Estudiante"))">
-                                </select>
-                            </div>
-                        </div>
 
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Creditos
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmCreditos"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Creditos" />
+                            </div>
+
+                        </div>
                         <div>
                             class="form-group">
                             <label class="col-lg-4 control-label">
-                                Materia
+                                Nivel
                             </label>
                             <div class="col-lg-6">
-                                <select id="nmMateria"
+                                <select id="nmNivel"
                                         class="form-control"
-                                        asp-for="@Model.Actual!.Materia"
-                                        asp-items="@(new SelectList(Model.Materias, "Id", "Estudiante"))">
+                                        asp-for="@Model.Actual!.Nivel"
+                                        asp-items="@(new SelectList(Model.Niveles, "Id", "Nombre"))">
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Nota1
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmNota1"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Nota1" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Nota2
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmNota2"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Nota2" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Nota3
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmNota3"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Nota3" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Nota4
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmNota4"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Nota4" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Nota5
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmNota5"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Nota5" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Nota Final
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmNotaFinal"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.NotaFinal" />
                             </div>
                         </div>
                     </div>
@@ -176,7 +115,7 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                @Model.Actual!.Estudiante
+                                @Model.Actual!.Nombre
                             </h6>
                             <br />
                             <br />
@@ -196,41 +135,23 @@
             @if (Model.Accion == lib_utilidades.Enumerables.Ventanas.Listas ||
             Model.Accion == lib_utilidades.Enumerables.Ventanas.Borrar)
             {
-                <input id="flEstudiante"
+                <input id="flNombre"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Estudiante"
-                       placeholder="Estudiante" />
+                       asp-for="@Model.Filtro!.Nombre"
+                       placeholder="Nombre" />
                 <br />
 
                 <div class="containers_vn panel panel-default">
                     <table class="tb_data table table-striped table-bordered table-hover">
                         <tr>
                             <th>
-                                Estudiante
-                            </th>
-                             <th>
-                                Salon
+                                Nombre
                             </th>
                             <th>
-                                Materia
+                                Creditos
                             </th>
                             <th>
-                                Nota1
-                            </th>
-                            <th>
-                                Nota2
-                            </th>
-                            <th>
-                                Nota3
-                            </th>
-                            <th>
-                                Nota4
-                            </th>
-                            <th>
-                                Nota5
-                            </th>
-                            <th>
-                                NotaFinal
+                                Nivel
                             </th>
                         </tr>
                         @if (Model != null && Model.Lista != null)
@@ -239,31 +160,13 @@
                             {
                                 <tr>
                                     <td>
-                                        @elemento.Estudiante
+                                        @elemento.Nombre
                                     </td>
                                     <td class="cl_hidden">
-                                        @Model.ConvertirSalon(@elemento.Salon)
+                                        @elemento.Creditos
                                     </td>
                                     <td class="cl_hidden">
-                                        @Model.ConvertirMateria(@elemento.Materia)
-                                    </td>
-                                    <td class="cl_hidden ">
-                                        @elemento.Nota1
-                                    </td>
-                                    <td class="cl_hidden ">
-                                        @elemento.Nota2
-                                    </td>
-                                    <td class="cl_hidden ">
-                                        @elemento.Nota3
-                                    </td>
-                                    <td class="cl_hidden ">
-                                        @elemento.Nota4
-                                    </td>
-                                    <td class="cl_hidden ">
-                                        @elemento.Nota5
-                                    </td>
-                                    <td class="cl_hidden ">
-                                        @elemento.NotaFinal
+                                        @Model.ConvertirNivel(@elemento.Nivel)
                                     </td>
                                     <td>
                                         <input type="submit"
