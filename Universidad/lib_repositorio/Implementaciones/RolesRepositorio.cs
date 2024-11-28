@@ -15,25 +15,22 @@ namespace lib_repositorio.Implementaciones
         private Conexion? conexion = null;
         private IAuditoriasRepositorio? IAuditoriasRepositorio = null;
 
-        public RolesRepositorio(IAuditoriasRepositorio IAuditoriasRepositorio)
-        {
-            this.IAuditoriasRepositorio = IAuditoriasRepositorio;
-        }
-        public RolesRepositorio(Conexion conexion)
+        public RolesRepositorio(Conexion conexion, IAuditoriasRepositorio IAuditoriasRepositorio)
         {
             this.conexion = conexion;
+            this.IAuditoriasRepositorio = IAuditoriasRepositorio;
         }
 
         public List<Roles> Listar()
         {
-            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            /*IAuditoriasRepositorio!.Guardar(new Auditorias()
             {
                 Fecha = DateTime.Now,
                 Tabla = "Roles",
                 Referencia = 0,
                 Accion = "Listar",
 
-            });
+            });*/
 
             return conexion!.Listar<Roles>();
         }
