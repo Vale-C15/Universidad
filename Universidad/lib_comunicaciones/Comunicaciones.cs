@@ -37,12 +37,20 @@ namespace lib_comunicaciones
                 datos.Remove("Url");
                 datos.Remove("UrlToken");
                 datos["Bearer"] = token!;
-                var stringData = JsonConversor.ConvertirAString(datos);
+                var stringData = JsonConversor.ConvertirAString(datos); //id=0
 
                 var httpClient = new HttpClient();
-                httpClient.Timeout = new TimeSpan(0, 4, 0);
+                httpClient.Timeout = new TimeSpan(0, 30, 0);
 
                 var message = await httpClient.PostAsync(url, new StringContent(stringData));
+                /*message = {StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+                    {
+                    Date: Wed, 27 Nov 2024 22:06:08 GMT
+                    Server: Kestrel
+                      Transfer - Encoding: chunked
+                      Content - Type: text / plain; charset = utf - 8
+                    }
+                }*/
 
                 if (!message.IsSuccessStatusCode)
                 {

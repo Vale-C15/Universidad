@@ -32,7 +32,7 @@ namespace lib_presentaciones.Implementaciones
             datos["Entidad"] = entidad;
             datos["Tipo"] = tipo;
             var respuesta = await iComunicacion!.Buscar(datos);
-            if (respuesta.ContainsKey("Error"))
+            if (respuesta.ContainsKey("Error")) //Error
             {
                 throw new Exception(respuesta["Error"].ToString()!);
             }

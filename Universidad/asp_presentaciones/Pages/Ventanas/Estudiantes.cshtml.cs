@@ -7,16 +7,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace asp_presentaciones.Pages.Ventanas
 {
-    public class Clases_EstudiantesModel : PageModel
+    public class EstudiantesModel : PageModel
     {
-        private IClases_EstudiantesPresentacion? iPresentacion = null;
+        private IEstudiantesPresentacion? iPresentacion = null;
 
-        public Clases_EstudiantesModel(IClases_EstudiantesPresentacion iPresentacion)
+        public EstudiantesModel(IEstudiantesPresentacion iPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
-                Filtro = new Clases_Estudiantes();
+                Filtro = new Estudiantes();
             }
             catch (Exception ex)
             {
@@ -24,13 +24,13 @@ namespace asp_presentaciones.Pages.Ventanas
             }
         }
 
-        
+        public IFormFile? FormFile { get; set; }
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
-        [BindProperty] public Clases_Estudiantes? Actual { get; set; }
-        [BindProperty] public Clases_Estudiantes? Filtro { get; set; }
-        [BindProperty] public List<Clases_Estudiantes>? Lista { get; set; }
-        [BindProperty] public List<Salones>? Salones { get; set; } //Lista de claves foraneas
-        [BindProperty] public List<Materias>? Materias { get; set; } //Lista de claves foraneas
+        [BindProperty] public Estudiantes? Actual { get; set; }
+        [BindProperty] public Estudiantes? Filtro { get; set; }
+        [BindProperty] public List<Estudiantes>? Lista { get; set; }
+        [BindProperty] public List<Niveles>? Niveles { get; set; } //Lista de claves foraneas
+        [BindProperty] public List<Estados>? Estados { get; set; } //Lista de claves foraneas
 
         public virtual void OnGet() { OnPostBtRefrescar(); }
 
@@ -42,10 +42,10 @@ namespace asp_presentaciones.Pages.Ventanas
                 if (String.IsNullOrEmpty(variable_session))
                     HttpContext.Session.SetString("key", "Pruebas");
 
-                Filtro!.Estudiante = Filtro!.Estudiante;
+                Filtro!.Nombre = Filtro!.Nombre ?? "";
 
                 Accion = Enumerables.Ventanas.Listas;
-                var task = this.iPresentacion!.Buscar(Filtro!, "ESTUDIANTE");
+                var task = this.iPresentacion!.Buscar(Filtro!, "NOMBRE");
                 task.Wait();
                 Lista = task.Result;
                 CargarCombox();
@@ -63,7 +63,7 @@ namespace asp_presentaciones.Pages.Ventanas
             {
                 Accion = Enumerables.Ventanas.Editar;
                 CargarCombox();
-                Actual = new Clases_Estudiantes()
+                Actual = new Estudiantes()
                 {
                     //Fecha = DateTime.Now,
                 };
@@ -101,7 +101,7 @@ namespace asp_presentaciones.Pages.Ventanas
                     memoryStream.Dispose();
                 }*/ //para imagen 
 
-                Task<Clases_Estudiantes>? task = null;
+                Task<Estudiantes>? task = null;
                 if (Actual!.Id == 0)
                     task = this.iPresentacion!.Guardar(Actual!);
                 else
@@ -176,29 +176,33 @@ namespace asp_presentaciones.Pages.Ventanas
         {
             try
             {
-                if (!(Salones == null || Salones!.Count <= 0))
+                if (!(Niveles == null || Niveles!.Count <= 0))
                     return;
 
-               Salones = new List<Salones>()
+                Niveles = new List<Niveles>()
                 {
-                  new  Salones() { Id = 0, Nombre = " " },
-                new  Salones() { Id = 1, Nombre = "K506" },
-                new  Salones() { Id = 2, Nombre = "N400" },
-                new  Salones() { Id = 3, Nombre = "L203" },
-                new  Salones() { Id = 4, Nombre = "M303" }
+                    new Niveles() { Id = 0, Nombre = " " },
+                    new Niveles() { Id = 1, Nombre = "Semestre 1" },
+                    new Niveles() { Id = 2, Nombre = "Semestre 2" },
+                    new Niveles() { Id = 3, Nombre = "Semestre 3" },
+                    new Niveles() { Id = 4, Nombre = "Semestre 4" },
+                    new Niveles() { Id = 5, Nombre = "Semestre 5" },
+                    new Niveles() { Id = 6, Nombre = "Semestre 6" },
+                    new Niveles() { Id = 7, Nombre = "Semestre 7" },
+                    new Niveles() { Id = 8, Nombre = "Semestre 8" },
+                    new Niveles() { Id = 9, Nombre = "Semestre 9" },
+                    new Niveles() { Id = 10, Nombre = "Semestre 10" },
 
                 };
 
-                if (!(Materias == null || Materias!.Count <= 0))
+                if (!(Estados == null || Estados!.Count <= 0))
                     return;
 
-                Materias = new List<Materias>()
+                Estados = new List<Estados>()
                 {
-                    new  Materias() { Id = 0, Nombre = " " },
-                    new  Materias() { Id = 1, Nombre = "K506" },
-                    new  Materias() { Id = 2, Nombre = "N400" },
-                    new  Materias() { Id = 3, Nombre = "L203" },
-                    new  Materias() { Id = 4, Nombre = "M303" }
+                    new Estados() { Id = 0, Nombre = " " },
+                    new Estados() { Id = 1, Nombre = "Activo" },
+                    new Estados() { Id = 2, Nombre = "Inactivo" },
 
                 };
             }
@@ -208,12 +212,12 @@ namespace asp_presentaciones.Pages.Ventanas
             }
         }
 
-        public string ConvertirSalon(int id)
+        public string ConvertirNivel(int id)
         {
             try
             {
                 CargarCombox();
-                return Salones!.FirstOrDefault(x => x.Id == id)!.Nombre!;
+                return Niveles!.FirstOrDefault(x => x.Id == id)!.Nombre!;
             }
             catch (Exception ex)
             {
@@ -222,12 +226,12 @@ namespace asp_presentaciones.Pages.Ventanas
             }
         }
 
-        public string ConvertirMateria(int id)
+        public string ConvertirEstado(int id)
         {
             try
             {
                 CargarCombox();
-                return Materias!.FirstOrDefault(x => x.Id == id)!.Nombre!;
+                return Estados!.FirstOrDefault(x => x.Id == id)!.Nombre!;
             }
             catch (Exception ex)
             {
