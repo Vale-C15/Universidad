@@ -4,62 +4,63 @@ using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
 using mst_prueba.Nucleo;
 
-namespace mst_prueba.Repositorio
+namespace mst_pruebas.Repositorios
 {
     [TestClass]
     public class EstadosPruebaUnitaria
     {
         private IEstadosRepositorio? iRepositorio = null;
         private Estados? entidad = null;
+        private IAuditoriasRepositorio? iAuditoriasRepositorio = null;
         private List<Estados>? lista = null;
-
 
         public EstadosPruebaUnitaria()
         {
             var conexion = new Conexion();
             conexion.StringConnection = Configuracion.ObtenerValor("ConectionString");
-            iRepositorio = new EstadosRepositorio(conexion);
+            iAuditoriasRepositorio = new AuditoriasRepositorio(conexion);
+
+            iRepositorio = new EstadosRepositorio(conexion, iAuditoriasRepositorio);
         }
 
-
         [TestMethod]
-        public void Executar()
+        public void Ejecutar()
         {
             Guardar();
             Listar();
+            Buscar();
             Modificar();
             Borrar();
         }
-
-        private void Listar()
-        {
-            lista = iRepositorio!.Listar();
-            Assert.IsTrue(lista.Count > 0);
-        }
-
-        public void Guardar()
+        private void Guardar()
         {
             entidad = new Estados()
             {
                 Nombre = "Test"
             };
-            entidad = iRepositorio!.Guardar(entidad!);
+            entidad = iRepositorio!.Guardar(entidad);
             Assert.IsTrue(entidad.Id != 0);
-
+        }
+        private void Listar()
+        {
+            lista = iRepositorio!.Listar();
+            Assert.IsTrue(lista.Count > 0);
+        }
+        private void Buscar()
+        {
+            var lista = iRepositorio!.Buscar(x => x.Id == entidad!.Id);
+            Assert.IsTrue(lista.Count > 0);
         }
 
-        public void Modificar()
-        { 
-            entidad!.Nombre = entidad.Nombre + "Mod ";
+        private void Modificar()
+        {
+            entidad!.Nombre = entidad.Nombre + " Mod";
             entidad = iRepositorio!.Modificar(entidad!);
-
             Assert.IsTrue(entidad.Id != 0);
         }
-
-        public void Borrar()
+        private void Borrar()
         {
             entidad = iRepositorio!.Borrar(entidad!);
-
             Assert.IsTrue(entidad.Id != 0);
         }
     }

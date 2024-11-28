@@ -10,26 +10,22 @@ namespace lib_repositorios.Implementaciones
         private Conexion? conexion = null;
         private IAuditoriasRepositorio? IAuditoriasRepositorio = null;
 
-        public Clases_EstudiantesRepositorio(IAuditoriasRepositorio IAuditoriasRepositorio)
-        {
-            this.IAuditoriasRepositorio = IAuditoriasRepositorio;
-        }
-
-        public Clases_EstudiantesRepositorio (Conexion conexion)
+        public Clases_EstudiantesRepositorio(Conexion conexion, IAuditoriasRepositorio IAuditoriasRepositorio)
         {
             this.conexion = conexion;
+            this.IAuditoriasRepositorio = IAuditoriasRepositorio;
         }
         
         public List<Clases_Estudiantes> Listar()
         {
-            IAuditoriasRepositorio!.Guardar(new Auditorias()
+            /*IAuditoriasRepositorio!.Guardar(new Auditorias()
             {
                 Fecha = DateTime.Now,
                 Tabla = "Clases_Estudiantes",
                 Referencia = 0,
                 Accion = "Listar",
 
-            });
+            });*/
 
             return conexion!.Listar<Clases_Estudiantes>();
         }
