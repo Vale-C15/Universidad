@@ -51,7 +51,7 @@ CONSTRAINT PK_Salones PRIMARY KEY CLUSTERED (ID)
 );
 GO
 
-CREATE TABLE Clases_Estudiantes(
+CREATE TABLE Materias(
 ID INT NOT NULL IDENTITY (1,1),
 Estudiante INT NOT NULL,
 Salon INT NOT NULL,
@@ -62,10 +62,10 @@ Nota3 DECIMAL NOT NULL,
 Nota4 DECIMAL NOT NULL,
 Nota5 DECIMAL NOT NULL,
 NotaFinal DECIMAL NOT NULL,
-CONSTRAINT PK_Clases_Estudiantes PRIMARY KEY CLUSTERED (ID),
-CONSTRAINT FK_Estudiantes_Clases_Estudiantes FOREIGN KEY (Estudiante) REFERENCES Estudiantes (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-CONSTRAINT FK_Salon_Clases_Estudiantes FOREIGN KEY (Salon) REFERENCES Salones (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-CONSTRAINT FK_Materias_Clases_Estudiantes FOREIGN KEY (Materia) REFERENCES Materias (ID) ON DELETE NO ACTION ON UPDATE NO ACTION 
+CONSTRAINT PK_Materias PRIMARY KEY CLUSTERED (ID),
+CONSTRAINT FK_Estudiantes_Materias FOREIGN KEY (Estudiante) REFERENCES Estudiantes (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+CONSTRAINT FK_Salon_Materias FOREIGN KEY (Salon) REFERENCES Salones (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+CONSTRAINT FK_Materias_Materias FOREIGN KEY (Materia) REFERENCES Materias (ID) ON DELETE NO ACTION ON UPDATE NO ACTION 
 );
 GO
 
@@ -140,7 +140,7 @@ VALUES
 ('1013', 'Valeria', 114, 1, 1), 
 ('1014', 'Isabela', 115, 3, 1);
 
-INSERT INTO Clases_Estudiantes (Estudiante, Salon, Materia, Nota1, Nota2, Nota3, Nota4, Nota5, NotaFinal)
+INSERT INTO Materias (Estudiante, Salon, Materia, Nota1, Nota2, Nota3, Nota4, Nota5, NotaFinal)
 VALUES
 ( 5, 1, 1, 4.0, 3.2, 4.5, 1.0, 2.5, 3.04),
 ( 3, 3, 2, 5.0, 4.3, 4.0, 3.8, 4.0, 4.22),
