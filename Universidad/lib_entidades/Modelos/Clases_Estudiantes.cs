@@ -3,8 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace lib_entidades.Modelos
 {
-    public class Clases_Estudiantes
-    {
+    public class Clases_Estudiantes { 
         [Key] public int Id { get; set; }
         public int Estudiante { get; set; }
         public int Salon { get; set; }
